@@ -37,15 +37,12 @@ function gw-rm() {
 }
 
 
-# npx commands
+# claude code
 if command -v npx >/dev/null 2>&1; then
   alias claude="npx @anthropic-ai/claude-code"
-  alias gemini="npx @google/gemini-cli"
 fi
 
-# gemini
-if command -v deno >/dev/null 2>&1; then
-  alias gemini="deno run --allow-env --allow-sys --allow-read --allow-write --allow-run --allow-ffi --allow-net npm:@google/gemini-cli"
-elif command -v npx >/dev/null 2>&1; then
+# gemini cli
+if command -v npx >/dev/null 2>&1; then
   alias gemini="npx @google/gemini-cli"
 fi
