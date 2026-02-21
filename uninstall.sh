@@ -42,7 +42,7 @@ echo "⚙️ Reverting Git config..."
 git config --global --unset include.path "$DOTFILES_DIR/.gitconfig"
 
 # --- AI Assistant instructions (Global) Cleanup ---
-AI_TARGET_FILES=("AGENTS.md" "GEMINI.md" "CLAUDE.md")
+AI_TARGET_FILES=(".config/opencode/AGENTS.md" ".gemini/GEMINI.md" ".claude/CLAUDE.md")
 echo "🤖 Cleaning up global AI assistant instructions..."
 for target in "${AI_TARGET_FILES[@]}"; do
   unlink_file "$target"

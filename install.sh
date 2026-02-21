@@ -51,7 +51,7 @@ git config --global include.path "$DOTFILES_DIR/.gitconfig"
 # --- AI Assistant instructions (Global) ---
 # 全プロジェクト共通で使う指示書をホームディレクトリ直下に展開する
 AI_INSTRUCTIONS_SRC="ai/common_instructions.md"
-AI_TARGET_FILES=("AGENTS.md" "GEMINI.md" "CLAUDE.md")
+AI_TARGET_FILES=(".config/opencode/AGENTS.md" ".gemini/GEMINI.md" ".claude/CLAUDE.md")
 
 echo "🤖 Setting up global AI assistant instructions..."
 for target in "${AI_TARGET_FILES[@]}"; do
