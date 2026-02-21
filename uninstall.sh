@@ -1,32 +1,45 @@
 #!/usr/bin/env bash
 set -eu
 
-targets=(
-  ".zshrc"
-  ".tmux.conf"
-  ".gitignore_global"
-)
+DOTFILES_DIR="$HOME/dotfiles"
 
-echo "🗑️  Removing dotfiles setup..."
+# 引数1: ホームディレクトリからの展開先パス
+unlink_file() {
+    local dst="$HOME/$1"
 
-echo "📂 Removing symlinks..."
-for target in "${targets[@]}"; do
-  path="$HOME/$target"
-  if [ -L "$path" ]; then
-    rm "$path"
-    echo "  - Removed link: $target"
-  elif [ -f "$path" ]; then
-    echo "  ! Skipped: $path (Not a symlink)"
-  fi
-done
+    # シンボリックリンクであれば削除
+    if [ -L "$dst" ]; then
+        rm "$dst"
+        echo "🗑️  Unlinked: $1"
 
-echo "⚙️  Reverting Git configuration..."
-if git config --global --get include.path "$HOME/dotfiles/.gitconfig" > /dev/null; then
-  git config --global --unset include.path "$HOME/dotfiles/.gitconfig"
-  echo "  - Removed include.path from .gitconfig"
-else
-  echo "  ! No include.path found in .gitconfig"
-fi
+        # バックアップがあれば復元 (最新の1つ)
+        local backup=$(ls -1 "${dst}.bak_"* 2>/dev/null | sort -r | head -n 1)
+        if [ -n "$backup" ]; then
+            mv "$backup" "$dst"
+            echo "🔄 Restored backup for $1 from ${backup##*/}"
+        fi
+
+        # もし親ディレクトリが空になったら削除 (オプション)
+        local parent=$(dirname "$dst")
+        if [ "$parent" != "$HOME" ] && [ -d "$parent" ] && [ ! "$(ls -A "$parent")" ]; then
+            rmdir "$parent"
+            echo "📁 Removed empty directory: ${parent#$HOME/}"
+        fi
+    fi
+}
+
+echo "🧹 Starting dotfiles uninstallation..."
+
+# --- リンク解除の定義 (install.shと対にする) ---
+unlink_file ".zshrc"
+unlink_file ".tmux.conf"
+unlink_file ".gitignore_global"
+unlink_file ".config/starship.toml"
+unlink_file ".config/sheldon/plugins.toml"
+
+# --- Git構成の解除 ---
+echo "⚙️ Reverting Git config..."
+git config --global --unset include.path "$DOTFILES_DIR/.gitconfig"
 
 echo "✅ Uninstallation complete!"
-echo "💡 Note: Please restore any backup files in $HOME manually if needed."
+echo "💡 Note: Backup files (.bak_*) were kept. Restore them manually if needed."

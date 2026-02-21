@@ -3,34 +3,49 @@ set -eu
 
 DOTFILES_DIR="$HOME/dotfiles"
 
-echo "🚀 Starting dotfiles setup..."
-
+# 引数1: リポジトリ内の相対パス
+# 引数2: ホームディレクトリからの展開先パス
 link_file() {
-  local source="$DOTFILES_DIR/$1"
-  local target="$HOME/$1"
+    local src="$DOTFILES_DIR/$1"
+    local dst="$HOME/$2"
 
-  if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
-    return
-  fi
+    # 展開先の親ディレクトリを作成
+    mkdir -p "$(dirname "$dst")"
 
-  # backup original
-  if [ -f "$target" ] && [ ! -L "$target" ]; then
-    local backup="${target}.backup_$(date +%Y%m%d_%H%M%S)"
-    mv "$target" "$backup"
-    echo "  📦 Backed up: $target -> $(basename "$backup")"
-  fi
+    # 既に正しいリンクが貼られている場合はスキップ
+    if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+        return
+    fi
 
-  ln -sf "$source" "$target"
-  echo "  🔗 Linked: $1"
+    # 実体ファイルがある場合はバックアップ
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        local backup="${dst}.bak_$(date +%Y%m%d_%H%M%S)"
+        mv "$dst" "$backup"
+        echo "📦 Backed up $dst to $backup"
+    fi
+
+    ln -sf "$src" "$dst"
+    echo "🔗 Linked: $2 -> $1"
 }
 
-echo "📂 Creating symlinks..."
-link_file ".zshrc"
-link_file ".tmux.conf"
-link_file ".gitignore_global"
+echo "🔗 Starting dotfiles installation..."
 
-echo "⚙️  Configuring Git..."
-git config --global include.path "$HOME/dotfiles/.gitconfig"
-echo "  + Added include.path to .gitconfig"
+# --- リンク設定の定義 ---
+link_file ".zshrc" ".zshrc"
+link_file ".tmux.conf" ".tmux.conf"
+link_file ".gitignore_global" ".gitignore_global"
+link_file "starship.toml" ".config/starship.toml"
+link_file "sheldon/plugins.toml" ".config/sheldon/plugins.toml"
 
-echo "✨ Dotfiles setup complete!"
+# --- Sheldonの構成更新 ---
+if command -v sheldon >/dev/null 2>&1; then
+    echo "📦 Updating Sheldon lock file..."
+    sheldon lock --config-dir "$HOME/.config/sheldon"
+fi
+
+# --- Git構成の統合 ---
+# ホストOS(Windows)のghコマンド認証を維持するため上書きせずincludeする
+echo "⚙️ Configuring Git..."
+git config --global include.path "$DOTFILES_DIR/.gitconfig"
+
+echo "✅ Installation complete!"

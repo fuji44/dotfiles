@@ -1,0 +1,25 @@
+# 改行を入れて情報を整理
+add_newline = true
+
+# プロンプトのシンボル
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+
+# Deno の表示 (🦕)
+[deno]
+format = "via [🦕 $version](bold blue) "
+
+# Node.js の表示 (🟢)
+[nodejs]
+format = "via [🟢 $version](bold green) "
+
+# GCP のプロジェクト名表示
+[gcloud]
+format = "on [☁️ $project]($style) "
+style = "bold yellow"
+
+# ディレクトリの表示
+[directory]
+truncation_length = 3
+fish_style_pwd_dir_length = 1
