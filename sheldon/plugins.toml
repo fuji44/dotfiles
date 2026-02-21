@@ -10,9 +10,6 @@ use = ["{{ name }}.zsh"]
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 
-[plugins.fzf-tab]
-github = "Aloxaf/fzf-tab"
-
 [plugins.dotfiles-zsh]
 local = "~/dotfiles/zsh"
 apply = ["source"]
