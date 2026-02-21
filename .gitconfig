@@ -1,0 +1,17 @@
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = code --wait
+
+[alias]
+  s = status
+  br = branch
+  co = checkout
+
+  # worktree
+  wt = worktree
+  wt-add = worktree add
+  wt-ls = worktree list
+  wt-rm = worktree remove
+
+[init]
+  defaultBranch = main
