@@ -5,27 +5,27 @@ DOTFILES_DIR="$HOME/dotfiles"
 
 # 引数1: ホームディレクトリからの展開先パス
 unlink_file() {
-    local dst="$HOME/$1"
+  local dst="$HOME/$1"
 
-    # シンボリックリンクであれば削除
-    if [ -L "$dst" ]; then
-        rm "$dst"
-        echo "🗑️  Unlinked: $1"
+  # シンボリックリンクであれば削除
+  if [ -L "$dst" ]; then
+    rm "$dst"
+    echo "🗑️  Unlinked: $1"
 
-        # バックアップがあれば復元 (最新の1つ)
-        local backup=$(ls -1 "${dst}.bak_"* 2>/dev/null | sort -r | head -n 1)
-        if [ -n "$backup" ]; then
-            mv "$backup" "$dst"
-            echo "🔄 Restored backup for $1 from ${backup##*/}"
-        fi
-
-        # もし親ディレクトリが空になったら削除 (オプション)
-        local parent=$(dirname "$dst")
-        if [ "$parent" != "$HOME" ] && [ -d "$parent" ] && [ ! "$(ls -A "$parent")" ]; then
-            rmdir "$parent"
-            echo "📁 Removed empty directory: ${parent#$HOME/}"
-        fi
+    # バックアップがあれば復元 (最新の1つ)
+    local backup=$(ls -1 "${dst}.bak_"* 2>/dev/null | sort -r | head -n 1)
+    if [ -n "$backup" ]; then
+      mv "$backup" "$dst"
+      echo "🔄 Restored backup for $1 from ${backup##*/}"
     fi
+
+    # もし親ディレクトリが空になったら削除 (オプション)
+    local parent=$(dirname "$dst")
+    if [ "$parent" != "$HOME" ] && [ -d "$parent" ] && [ ! "$(ls -A "$parent")" ]; then
+      rmdir "$parent"
+      echo "📁 Removed empty directory: ${parent#$HOME/}"
+    fi
+  fi
 }
 
 echo "🧹 Starting dotfiles uninstallation..."
