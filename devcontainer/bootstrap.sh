@@ -14,6 +14,6 @@ fi
 
 # 2. 既存の install.sh を実行 (シンボリックリンクの作成)
 echo "🔗 Creating symlinks..."
-bash "$(dirname "$0")/install.sh"
+bash "$(dirname "$0")/../install.sh"
 
 echo "✨ Personal environment is ready!"
