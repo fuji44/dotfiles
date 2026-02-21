@@ -40,7 +40,7 @@ link_file "sheldon/plugins.toml" ".config/sheldon/plugins.toml"
 # --- Sheldonの構成更新 ---
 if command -v sheldon >/dev/null 2>&1; then
   echo "📦 Updating Sheldon lock file..."
-  sheldon lock --config-dir "$HOME/.config/sheldon"
+  sheldon lock
 fi
 
 # --- Git構成の統合 ---
