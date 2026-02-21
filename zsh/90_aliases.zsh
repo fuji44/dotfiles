@@ -46,3 +46,8 @@ fi
 if command -v npx >/dev/null 2>&1; then
   alias gemini="npx @google/gemini-cli"
 fi
+
+# opencode
+if command -v npx >/dev/null 2>&1; then
+  alias gemini="npx opencode-ai@latest"
+fi

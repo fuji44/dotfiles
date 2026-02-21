@@ -48,4 +48,14 @@ fi
 echo "⚙️ Configuring Git..."
 git config --global include.path "$DOTFILES_DIR/.gitconfig"
 
+# --- AI Assistant instructions (Global) ---
+# 全プロジェクト共通で使う指示書をホームディレクトリ直下に展開する
+AI_INSTRUCTIONS_SRC="ai/common_instructions.md"
+AI_TARGET_FILES=("AGENTS.md" "GEMINI.md" "CLAUDE.md")
+
+echo "🤖 Setting up global AI assistant instructions..."
+for target in "${AI_TARGET_FILES[@]}"; do
+  link_file "$AI_INSTRUCTIONS_SRC" "$target"
+done
+
 echo "✅ Installation complete!"

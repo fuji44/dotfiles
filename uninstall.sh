@@ -41,5 +41,12 @@ unlink_file ".config/sheldon/plugins.toml"
 echo "⚙️ Reverting Git config..."
 git config --global --unset include.path "$DOTFILES_DIR/.gitconfig"
 
+# --- AI Assistant instructions (Global) Cleanup ---
+AI_TARGET_FILES=("AGENTS.md" "GEMINI.md" "CLAUDE.md")
+echo "🤖 Cleaning up global AI assistant instructions..."
+for target in "${AI_TARGET_FILES[@]}"; do
+  unlink_file "$target"
+done
+
 echo "✅ Uninstallation complete!"
 echo "💡 Note: Backup files (.bak_*) were kept. Restore them manually if needed."
