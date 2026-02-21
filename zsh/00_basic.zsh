@@ -8,3 +8,6 @@ setopt hist_ignore_dups
 setopt share_history
 # ディレクトリ名だけで cd
 setopt auto_cd
+
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
