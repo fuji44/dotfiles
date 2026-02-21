@@ -49,5 +49,5 @@ fi
 
 # opencode
 if command -v npx >/dev/null 2>&1; then
-  alias gemini="npx opencode-ai@latest"
+  alias opencode="npx opencode-ai@latest"
 fi
