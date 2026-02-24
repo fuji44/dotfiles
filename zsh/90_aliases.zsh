@@ -39,15 +39,21 @@ function gw-rm() {
 
 # claude code
 if command -v npx >/dev/null 2>&1; then
-  alias claude="npx @anthropic-ai/claude-code"
+  claude() {
+    npx @anthropic-ai/claude-code "$@"
+  }
 fi
 
 # gemini cli
 if command -v npx >/dev/null 2>&1; then
-  alias gemini="npx @google/gemini-cli"
+  gemini() {
+    npx @google/gemini-cli "$@"
+  }
 fi
 
 # opencode
 if command -v npx >/dev/null 2>&1; then
-  alias opencode="npx opencode-ai@latest"
+  opencode() {
+    npx opencode-ai "$@"
+  }
 fi
