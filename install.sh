@@ -21,31 +21,26 @@ link_file() {
   if [ -e "$dst" ] && [ ! -L "$dst" ]; then
     local backup="${dst}.bak_$(date +%Y%m%d_%H%M%S)"
     mv "$dst" "$backup"
-    echo "📦 Backed up $dst to $backup"
+    echo "📦 バックアップ: $dst → $backup"
   fi
 
   ln -sf "$src" "$dst"
-  echo "🔗 Linked: $2 -> $1"
+  echo "🔗 リンク作成: $2 → $1"
 }
 
-echo "🔗 Starting dotfiles installation..."
+echo "🔗 dotfiles のインストールを開始します..."
 
 # --- リンク設定の定義 ---
 link_file ".zshrc" ".zshrc"
 link_file ".tmux.conf" ".tmux.conf"
 link_file ".gitignore_global" ".gitignore_global"
-link_file "starship.toml" ".config/starship.toml"
-link_file "sheldon/plugins.toml" ".config/sheldon/plugins.toml"
-
-# --- Sheldonの構成更新 ---
-if command -v sheldon >/dev/null 2>&1; then
-  echo "📦 Updating Sheldon lock file..."
-  sheldon lock
-fi
+link_file ".config/starship.toml" ".config/starship.toml"
+link_file ".config/sheldon/plugins.toml" ".config/sheldon/plugins.toml"
+link_file ".config/mise/config.toml" ".config/mise/config.toml"
 
 # --- Git構成の統合 ---
 # ホストOS(Windows)のghコマンド認証を維持するため上書きせずincludeする
-echo "⚙️ Configuring Git..."
+echo "⚙️ Git を設定しています..."
 git config --global include.path "$DOTFILES_DIR/.gitconfig"
 
 # --- AI Assistant instructions (Global) ---
@@ -53,9 +48,10 @@ git config --global include.path "$DOTFILES_DIR/.gitconfig"
 AI_INSTRUCTIONS_SRC="ai/common_instructions.md"
 AI_TARGET_FILES=(".config/opencode/AGENTS.md" ".gemini/GEMINI.md" ".claude/CLAUDE.md")
 
-echo "🤖 Setting up global AI assistant instructions..."
+echo "🤖 AI アシスタントの共通設定をリンクしています..."
 for target in "${AI_TARGET_FILES[@]}"; do
   link_file "$AI_INSTRUCTIONS_SRC" "$target"
 done
 
-echo "✅ Installation complete!"
+echo "✅ インストール完了!"
+echo "💡 sheldon プラグインを更新した場合は 'sheldon lock' を実行してください。"

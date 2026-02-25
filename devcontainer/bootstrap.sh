@@ -9,19 +9,24 @@ elif [ -x "$HOME/.local/bin/mise" ]; then
 elif [ -x "$HOME/.cargo/bin/mise" ]; then
   MISE_BIN="$HOME/.cargo/bin/mise"
 else
-  echo "🚀 Installing mise..."
+  echo "🚀 mise をインストールしています..."
   curl https://mise.run | MISE_INSTALL_PATH="$HOME/.local/bin/mise" sh
   MISE_BIN="$HOME/.local/bin/mise"
 fi
 
-# Trust .mise.toml and install tools
-echo "📦 Installing tools defined in .mise.toml..."
-DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-"$MISE_BIN" trust "$DOTFILES_DIR/.mise.toml"
-"$MISE_BIN" install -y
-
-# 既存の install.sh を実行 (シンボリックリンクの作成)
-echo "🔗 Creating symlinks..."
+# シンボリックリンクの作成（~/.config/mise/config.toml を先に配置する）
+echo "🔗 シンボリックリンクを作成しています..."
 bash "$(dirname "$0")/../install.sh"
 
-echo "✨ Personal environment is ready!"
+# mise でツールをインストール（グローバル設定は自動的に信頼される）
+echo "📦 mise でツールをインストールしています..."
+"$MISE_BIN" install -y
+
+# Sheldon プラグインのロックファイルを生成
+if command -v sheldon >/dev/null 2>&1; then
+  echo "📦 Sheldon のロックファイルを更新しています..."
+  sheldon lock
+fi
+
+echo "✨ 個人環境のセットアップが完了しました!"
+
