@@ -1,0 +1,7 @@
+[settings]
+cargo.binstall = true
+
+[tools]
+cargo-binstall = "latest"
+"cargo:sheldon" = "latest"
+starship = "latest"

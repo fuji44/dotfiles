@@ -2,6 +2,10 @@ if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+fi
+
 if command -v sheldon >/dev/null 2>&1; then
   eval "$(sheldon source)"
 elif [ -d "$HOME/dotfiles/zsh" ]; then
