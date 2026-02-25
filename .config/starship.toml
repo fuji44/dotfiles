@@ -10,9 +10,9 @@ error_symbol = "[➜](bold red)"
 [deno]
 format = "via [🦕 $version](bold blue) "
 
-# Node.js の表示 (🟢)
+# Node.js の表示 (⏣)
 [nodejs]
-format = "via [🟢 $version](bold green) "
+format = "via [⏣ $version](bold green) "
 
 # GCP のプロジェクト名表示
 [gcloud]
