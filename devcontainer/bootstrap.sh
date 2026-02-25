@@ -14,9 +14,11 @@ else
   MISE_BIN="$HOME/.local/bin/mise"
 fi
 
-# Install tools via mise
+# Trust .mise.toml and install tools
 echo "📦 Installing tools defined in .mise.toml..."
-"$MISE_BIN" install
+DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+"$MISE_BIN" trust "$DOTFILES_DIR/.mise.toml"
+"$MISE_BIN" install -y
 
 # 既存の install.sh を実行 (シンボリックリンクの作成)
 echo "🔗 Creating symlinks..."
