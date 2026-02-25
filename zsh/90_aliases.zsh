@@ -37,23 +37,23 @@ function gw-rm() {
 }
 
 
-# claude code
-if command -v npx >/dev/null 2>&1; then
-  claude() {
-    npx @anthropic-ai/claude-code "$@"
-  }
-fi
+# # claude code
+# if command -v npx >/dev/null 2>&1; then
+#   claude() {
+#     npx @anthropic-ai/claude-code "$@"
+#   }
+# fi
 
-# gemini cli
-if command -v npx >/dev/null 2>&1; then
-  gemini() {
-    npx @google/gemini-cli "$@"
-  }
-fi
+# # gemini cli
+# if command -v npx >/dev/null 2>&1; then
+#   gemini() {
+#     npx @google/gemini-cli "$@"
+#   }
+# fi
 
-# opencode
-if command -v npx >/dev/null 2>&1; then
-  opencode() {
-    npx opencode-ai "$@"
-  }
-fi
+# # opencode
+# if command -v npx >/dev/null 2>&1; then
+#   opencode() {
+#     npx opencode-ai "$@"
+#   }
+# fi
