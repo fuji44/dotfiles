@@ -4,7 +4,6 @@ fi
 
 if command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
-  eval "$(mise hook-env -s zsh 2>/dev/null)"
 fi
 
 if command -v sheldon >/dev/null 2>&1; then
