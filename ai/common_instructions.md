@@ -12,8 +12,8 @@
 
 ### 2.1 Git操作の制限
 
-- ユーザーの明示的な許可なく勝手に状態を変更するGit操作（`git add`, `git commit`, `git reset`, `git checkout`, `git restore`, `git clean` など）を実行しないでください。
-- 特に `git push`（リモートへの反映）や `git rebase`（履歴の改変）の実行は厳禁です。
+- 破壊的または手戻りが困難なGit操作（`git push`、`git rebase`、`git reset --hard`、`git clean -fd` など）は、ユーザーの明示的な確認なしに実行しないでください。
+- 手戻り可能なローカルでのGit操作（`git add`、`git commit`、`git stash`、`git checkout`、`git restore` など）は、必要に応じてユーザーの明示的な許可なく実行できます。ただし、不要なコミットで履歴を乱さないよう配慮してください。
 
 ### 2.2 一般コマンドの制限
 
