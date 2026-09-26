@@ -52,9 +52,8 @@ cd ~/dotfiles && ./uninstall.sh
 │   └── 99_starship.zsh    # Starship初期化
 ├── devcontainer/
 │   └── bootstrap.sh       # コンテナセットアップ
-├── ai/
-│   └── common_instructions.md # 全プロジェクト共通のAI指示書
-└── conductor/             # 内部ドキュメント・ワークフロー
+└── ai/
+    └── common_instructions.md # 全プロジェクト共通のAI指示書
 ```
 
 ## 開発環境
