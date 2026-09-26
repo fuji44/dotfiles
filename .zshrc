@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/fuji44/.zsh/completions:"* ]]; then export FPATH="/home/fuji44/.zsh/completions:$FPATH"; fi
 if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
@@ -18,3 +20,8 @@ fi
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/fuji44/.local/bin:$PATH"
+. "/home/fuji44/.deno/env"
