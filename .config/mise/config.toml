@@ -4,6 +4,4 @@ cargo.binstall = true
 [tools]
 cargo-binstall = "latest"
 "cargo:sheldon" = "latest"
-node = "lts"
-npm = "latest"
 starship = "latest"
