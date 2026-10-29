@@ -25,3 +25,6 @@ fi
 # Added by Antigravity CLI installer
 export PATH="/home/fuji44/.local/bin:$PATH"
 . "/home/fuji44/.deno/env"
+
+# Vite+ bin (https://viteplus.dev)
+. "/home/fuji44/.config/vite-plus/env"
